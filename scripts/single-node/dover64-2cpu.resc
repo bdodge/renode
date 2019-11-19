@@ -1,0 +1,7 @@
+mach create
+machine LoadPlatformDescription @/home/bdodge/renode/renode/platforms/boards/dover64-2cpu.repl
+sysbus LoadELF @/home/bdodge/renode/work/riscv-pk/bbl
+sysbus LoadELF @/home/bdodge/renode/riscv-bootrom/bootrom
+showAnalyzer sysbus.uart0
+machine StartGdbServer 3333 true sysbus.u54_1
+
