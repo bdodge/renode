@@ -1,7 +1,16 @@
-mach create
+:name: Dover64 Dual CPU RISCV 
+:description: This script runs SMP Linux via Berkeley Bootloader via custom bootrom
+
+using sysbus
+$name?="Dover64_2CPU"
+mach create $name
+
 machine LoadPlatformDescription @/home/bdodge/renode/renode/platforms/boards/dover64-2cpu.repl
+
 sysbus LoadELF @/home/bdodge/renode/work/riscv-pk/bbl
 sysbus LoadELF @/home/bdodge/renode/riscv-bootrom/bootrom
+
 showAnalyzer sysbus.uart0
+
 machine StartGdbServer 3333 true sysbus.u54_1
 
