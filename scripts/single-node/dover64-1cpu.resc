@@ -1,16 +1,16 @@
-:name: Dover64 Single CPU RISCV 
+:name: Dover64 Single CPU RISCV
 :description: This script runs Linux via Berkeley Bootloader via custom bootrom
 
 using sysbus
 $name?="Dover64_1CPU"
 mach create $name
 
-machine LoadPlatformDescription @/home/bdodge/renode/renode/platforms/boards/dover64-1cpu.repl
+machine LoadPlatformDescription @/home/bdodge/DoverMicro/renode-riscv/renode/platforms/boards/dover64-1cpu.repl
 
-sysbus LoadELF @/home/bdodge/renode/work/riscv-pk/bbl
-sysbus LoadELF @/home/bdodge/renode/riscv-bootrom/bootrom
+sysbus LoadELF @/home/bdodge/DoverMicro/renode-riscv/work/riscv-pk/bbl
+sysbus LoadELF @/home/bdodge/DoverMicro/renode-riscv/bootrom/bootrom
 
 showAnalyzer sysbus.uart0
 
-machine StartGdbServer 3333 true sysbus.u54_1
+machine StartGdbServer 3333 true sysbus.u54_0
 

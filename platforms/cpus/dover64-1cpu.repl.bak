@@ -4,12 +4,6 @@ u54_0: CPU.RiscV64 @ sysbus
     privilegeArchitecture: PrivilegeArchitecture.Priv1_10
     timeProvider: clint
 
-u54_1: CPU.RiscV64 @ sysbus
-    cpuType: "rv64gc"
-    hartId: 1
-    privilegeArchitecture: PrivilegeArchitecture.Priv1_10
-    timeProvider: clint
-
 debug: Memory.MappedMemory @sysbus 0x0
     size: 0x1000
 

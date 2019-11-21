@@ -1,4 +1,4 @@
-u54_1: CPU.RiscV64 @ sysbus
+u54_0: CPU.RiscV64 @ sysbus
     cpuType: "rv64gc"
     hartId: 0
     privilegeArchitecture: PrivilegeArchitecture.Priv1_10
@@ -16,7 +16,7 @@ u54Hart1ITim: Memory.MappedMemory @ sysbus 0x01808000
 clint: IRQControllers.CoreLevelInterruptor  @ sysbus 0x2000000
     frequency: 1000000
     numberOfTargets: 5
-    [0, 1] -> u54_1@[3, 7]
+    [0, 1] -> u54_0@[3, 7]
 
 ddr: Memory.MappedMemory @ sysbus 0x80000000
     size: 0x10000000
