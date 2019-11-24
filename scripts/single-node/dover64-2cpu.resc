@@ -5,10 +5,10 @@ using sysbus
 $name?="Dover64_2CPU"
 mach create $name
 
-machine LoadPlatformDescription @/home/bdodge/renode-riscv/renode/platforms/boards/dover64-2cpu.repl
+machine LoadPlatformDescription @platforms/boards/dover64-2cpu.repl
 
-sysbus LoadELF @/home/bdodge/renode-riscv/work/riscv-pk/bbl
-sysbus LoadELF @/home/bdodge/renode-riscv/bootrom/bootrom
+sysbus LoadELF @../work/riscv-pk/bbl
+sysbus LoadELF @../bootrom/bootrom
 
 showAnalyzer sysbus.uart0
 

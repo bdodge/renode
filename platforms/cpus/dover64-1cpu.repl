@@ -1,5 +1,5 @@
 u54_0: CPU.RiscV64 @ sysbus
-    cpuType: "rv64gc"
+    cpuType: "rv64imafdc"
     hartId: 0
     privilegeArchitecture: PrivilegeArchitecture.Priv1_10
     timeProvider: clint
