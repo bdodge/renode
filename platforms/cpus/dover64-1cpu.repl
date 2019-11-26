@@ -18,8 +18,27 @@ clint: IRQControllers.CoreLevelInterruptor  @ sysbus 0x2000000
     numberOfTargets: 5
     [0, 1] -> u54_0@[3, 7]
 
+plic: IRQControllers.PlatformLevelInterruptController @ sysbus 0xc000000
+    [0-3] -> u54_0@[8-11]
+    numberOfSources: 53
+    numberOfTargets: 5
+    prioritiesEnabled : false
+
 ddr: Memory.MappedMemory @ sysbus 0x80000000
     size: 0x10000000
+
+ethernet: Network.CadenceGEM @ sysbus 0x10090000
+    moduleRevision: 0x0109
+    moduleId: 0x1007
+    IRQ -> plic@53
+
+phy: Network.EthernetPhysicalLayer @ ethernet 0
+    Id1: 0x0141
+    Id2: 0x0e40
+    AutoNegotiationAdvertisement: 0x1e1
+    AutoNegotiationLinkPartnerBasePageAbility: 0x1e1
+    MasterSlaveControl: 0x300
+    MasterSlaveStatus: 0x3000
 
 uart0: UART.NS16550 @ sysbus 0x10010000
 
