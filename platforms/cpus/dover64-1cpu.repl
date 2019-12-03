@@ -54,3 +54,7 @@ phy: Network.EthernetPhysicalLayer @ ethernet 0
 uart0: UART.NS16550 @ sysbus 0x10010000
     IRQ -> plic@5
 
+led0: DMA.DoverLed @ sysbus 0x100A0000
+
+dma0: DMA.DoverDma @ sysbus 0x100A1000
+
