@@ -7,6 +7,8 @@ mach create $name
 
 machine LoadPlatformDescription @platforms/boards/dover64-1cpu.repl
 
+sysbus.u54_1 MaximumBlockSize 1
+
 sysbus LoadELF @../work/riscv-pk/bbl
 sysbus LoadELF @../bootrom/bootrom
 
