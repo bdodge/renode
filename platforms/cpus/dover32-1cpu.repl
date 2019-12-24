@@ -1,0 +1,76 @@
+cpu0: CPU.RiscV32 @ sysbus
+    cpuType: "rv32imaf"
+    hartId: 0
+    privilegeArchitecture: PrivilegeArchitecture.Priv1_10
+    timeProvider: clint
+    
+cpu1: CPU.RiscV32 @ sysbus
+    cpuType: "rv32imaf"
+    hartId: 1
+    privilegeArchitecture: PrivilegeArchitecture.Priv1_10
+    timeProvider: clint
+
+debugArea: Memory.MappedMemory @ sysbus 0x0
+    size: 0x1000
+
+smallRom: Memory.MappedMemory @ sysbus 0x1000
+    size: 0xF000
+
+bootrom: Memory.MappedMemory @sysbus 0x010000
+    size: 0x10000
+
+timer0: Timers.MiV_CoreTimer @ sysbus 0x70003000
+    -> plic@30
+    clockFrequency: 66000000
+
+timer1: Timers.MiV_CoreTimer @ sysbus 0x70004000
+    -> plic@31
+    clockFrequency: 66000000
+
+//trace: TracePeripheral @  sysbus 0x50000000
+//    host_cpu: cpu
+//    trigger_pc: 0xC0000100
+//    stop_pc: 0xC0000C00
+
+// Power/Reset/Clock/Interrupt
+clint: IRQControllers.CoreLevelInterruptor  @ sysbus 0x2000000
+    frequency: 1000000
+    numberOfTargets: 2
+    [0, 1] -> cpu0@[3, 7]
+    [2, 3] -> cpu1@[3, 7]
+
+plic: IRQControllers.PlatformLevelInterruptController @ sysbus 0xC000000
+    [0-3] -> cpu0@[8-11]
+    [4-7] -> cpu1@[8-11]
+    numberOfSources: 53
+    numberOfTargets: 2
+    prioritiesEnabled : false
+
+ddr: Memory.MappedMemory @ sysbus 0xC0000000
+    size: 0x10000000
+
+gpioInputs: GPIOPort.MiV_CoreGPIO @ sysbus 0x70002000
+    -> plic@29
+
+gpioOutputs: GPIOPort.MiV_CoreGPIO @ sysbus 0x70005000
+
+ethernet: Network.CadenceGEM @ sysbus 0x10090000
+    moduleRevision: 0x0109
+    moduleId: 0x1007
+    IRQ -> plic@53
+
+phy: Network.EthernetPhysicalLayer @ ethernet 0
+    Id1: 0x0141
+    Id2: 0x0e40
+    AutoNegotiationAdvertisement: 0x1e1
+    AutoNegotiationLinkPartnerBasePageAbility: 0x1e1
+    MasterSlaveControl: 0x300
+    MasterSlaveStatus: 0x3000
+
+uart0: UART.NS16550 @ sysbus 0x10010000
+    IRQ -> plic@5
+
+led0: DMA.DoverLed @ sysbus 0x100A0000
+
+dma0: DMA.DoverDma @ sysbus 0x100A1000
+

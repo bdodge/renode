@@ -1,0 +1,24 @@
+:name: Dover32 Single CPU RISCV
+:description: This script runs Linux via Berkeley Bootloader via custom bootrom
+
+using sysbus
+$name?="Dover32_1CPU"
+mach create $name
+
+machine LoadPlatformDescription @platforms/boards/dover32-1cpu.repl
+
+sysbus LoadELF @../work/riscv-pk/bbl
+sysbus LoadELF @../bootrom/bootrom
+
+showAnalyzer sysbus.uart0
+
+emulation CreateSwitch "switch1"
+connector Connect sysbus.ethernet switch1
+switch1 Start
+
+emulation CreateTap "tap0" "tap"
+connector Connect host.tap switch1
+host.tap Start
+
+#machine StartGdbServer 3333 true sysbus.cpu0
+
